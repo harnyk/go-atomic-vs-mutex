@@ -25,5 +25,7 @@ jobs:
         run: |
           go build -ldflags="-s -w" -o t_atom ./kamenev/atom/t_atom.go
           go build -ldflags="-s -w" -o t_mut ./kamenev/mut/t_mut.go
+          echo "Atomic:"
           ./t_atom
+          echo "Mutex:"
           ./t_mut
