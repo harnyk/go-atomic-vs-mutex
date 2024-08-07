@@ -19,4 +19,4 @@ jobs:
           go-version: "1.22"
 
       - name: Test
-        run: go test -v -bench .
+        run: go test -bench .
