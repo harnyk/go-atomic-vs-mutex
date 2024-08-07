@@ -18,5 +18,12 @@ jobs:
         with:
           go-version: "1.22"
 
-      - name: Test
+      - name: My Benchmark
         run: go test -bench .
+
+      - name: Kamenev Benchmark
+        run: |
+          go build -ldflags="-s -w" -o t_atom ./kamenev/atom/t_atom.go
+          go build -ldflags="-s -w" -o t_mut ./kamenev/mut/t_mut.go
+          ./t_atom
+          ./t_mut

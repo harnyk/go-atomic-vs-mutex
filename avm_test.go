@@ -19,12 +19,12 @@ func TestSynchronizeWithAtomic(t *testing.T) {
 
 func BenchmarkSynchronizeWithMutexes(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		avm.SynchronizeWithMutexes(1e6)
+		avm.SynchronizeWithMutexes(1e8)
 	}
 }
 
 func BenchmarkSynchronizeWithAtomic(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		avm.SynchronizeWithAtomic(1e6)
+		avm.SynchronizeWithAtomic(1e8)
 	}
 }

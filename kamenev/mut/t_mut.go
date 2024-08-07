@@ -1,0 +1,67 @@
+package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+)
+
+type A struct {
+    i int
+    m sync.Mutex
+}
+
+func (a *A) Inc(delta int) {
+    a.m.Lock()
+    defer a.m.Unlock()
+
+    a.i += delta
+}
+
+func (a *A) Get() int {
+    a.m.Lock()
+    defer a.m.Unlock()
+    return a.i
+}
+
+type B struct {
+}
+
+func (b *B) II(c int) {
+    for i := 0; i < c; i++ {
+	a.Inc(1)
+    }
+    wg.Done()
+}
+
+type C struct {
+}
+
+func (c *C) DD(count int) {
+    for i := 0; i < count; i++ {
+	a.Inc(-1)
+    }
+    wg.Done()
+}
+
+var a A
+var b B
+var c C
+var wg sync.WaitGroup
+
+func main() {
+	var nCount = 100000000
+	a.i = 0
+
+	start := time.Now()
+
+	wg.Add(1)
+	go b.II(nCount)
+
+	wg.Add(1)
+	go c.DD(nCount)
+
+	wg.Wait()
+	fmt.Printf("Time %v\n", time.Since(start))
+	fmt.Println("Sum", a.Get())
+}
