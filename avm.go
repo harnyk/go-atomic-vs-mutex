@@ -5,6 +5,8 @@ import (
 	"sync/atomic"
 )
 
+const numGoroutines = 4
+
 func SynchronizeWithMutexes(times uint) int64 {
 	var value int64
 	mu := sync.Mutex{}
@@ -24,9 +26,12 @@ func SynchronizeWithMutexes(times uint) int64 {
 		wg.Done()
 	}
 
-	wg.Add(2)
-	go grind(times, 1)
-	go grind(times, -1)
+	for i := 0; i < numGoroutines/2; i++ {
+		wg.Add(1)
+		go grind(times, 1)
+		wg.Add(1)
+		go grind(times, -1)
+	}
 	wg.Wait()
 
 	return value
@@ -48,9 +53,12 @@ func SynchronizeWithAtomic(times uint) int64 {
 		wg.Done()
 	}
 
-	wg.Add(2)
-	go grind(times, 1)
-	go grind(times, -1)
+	for i := 0; i < numGoroutines/2; i++ {
+		wg.Add(1)
+		go grind(times, 1)
+		wg.Add(1)
+		go grind(times, -1)
+	}
 	wg.Wait()
 
 	return value
