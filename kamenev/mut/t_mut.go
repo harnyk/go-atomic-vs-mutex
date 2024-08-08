@@ -54,10 +54,16 @@ func main() {
 	a.i = 0
 
 	start := time.Now()
-
+	
+	wg.Add(1)
+	go b.II(nCount)
+	
 	wg.Add(1)
 	go b.II(nCount)
 
+	wg.Add(1)
+	go c.DD(nCount)
+	
 	wg.Add(1)
 	go c.DD(nCount)
 
